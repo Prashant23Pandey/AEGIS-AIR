@@ -1,0 +1,242 @@
+import type { DroneTrack, SecurityEvent, SystemKPIs } from '../types/telemetry';
+
+export const INITIAL_TRACKS: DroneTrack[] = [
+  {
+    id: 'TRK-7082',
+    callsign: 'SPECTRE-01',
+    classification: 'tactical-quad',
+    iff: 'hostile',
+    threatLevel: 'HIGH',
+    x: 3.2,
+    y: 2.8,
+    distanceKm: 4.25,
+    azimuthDeg: 48,
+    altitudeMeters: 340,
+    speedKmh: 68,
+    headingDeg: 228,
+    rfFrequencyGhz: 2.442,
+    rssiDbm: -68,
+    protocol: 'OcuSync 3.0 (Encrypted)',
+    payloadEstimate: 'Optical Pod + 800g Drop Munition',
+    originSector: 'NORTH-EAST',
+    status: 'ACTIVE',
+    firstDetected: '10:41:12',
+    lastUpdated: '10:45:00',
+    history: [
+      { x: 4.5, y: 4.2 },
+      { x: 3.8, y: 3.4 },
+      { x: 3.2, y: 2.8 }
+    ],
+    etaToPerimeterSeconds: 92,
+    batteryPercent: 64
+  },
+  {
+    id: 'TRK-9104',
+    callsign: 'KHAIBAR-DELTA',
+    classification: 'fixed-wing',
+    iff: 'hostile',
+    threatLevel: 'CRITICAL',
+    x: -6.4,
+    y: 4.1,
+    distanceKm: 7.6,
+    azimuthDeg: 302,
+    altitudeMeters: 1120,
+    speedKmh: 185,
+    headingDeg: 122,
+    rfFrequencyGhz: 1.250,
+    rssiDbm: -74,
+    protocol: 'FHSS Military Datalink',
+    payloadEstimate: 'IED Shaped Charge (Kamikaze)',
+    originSector: 'NORTH-WEST',
+    status: 'ACTIVE',
+    firstDetected: '10:43:05',
+    lastUpdated: '10:45:00',
+    history: [
+      { x: -8.5, y: 5.5 },
+      { x: -7.4, y: 4.8 },
+      { x: -6.4, y: 4.1 }
+    ],
+    etaToPerimeterSeconds: 98,
+    batteryPercent: 88
+  },
+  {
+    id: 'TRK-3341',
+    callsign: 'SWARM-ALPHA-1',
+    classification: 'swarm-node',
+    iff: 'hostile',
+    threatLevel: 'CRITICAL',
+    x: 4.8,
+    y: -3.2,
+    distanceKm: 5.76,
+    azimuthDeg: 123,
+    altitudeMeters: 140,
+    speedKmh: 95,
+    headingDeg: 303,
+    rfFrequencyGhz: 5.785,
+    rssiDbm: -62,
+    protocol: 'ExpressLRS Mesh 868MHz',
+    payloadEstimate: 'High-Explosive FPV Warhead',
+    originSector: 'SOUTH-EAST',
+    status: 'ACTIVE',
+    firstDetected: '10:44:18',
+    lastUpdated: '10:45:00',
+    history: [
+      { x: 5.6, y: -3.8 },
+      { x: 4.8, y: -3.2 }
+    ],
+    etaToPerimeterSeconds: 124,
+    batteryPercent: 72
+  },
+  {
+    id: 'TRK-3342',
+    callsign: 'SWARM-ALPHA-2',
+    classification: 'swarm-node',
+    iff: 'hostile',
+    threatLevel: 'HIGH',
+    x: 5.1,
+    y: -3.0,
+    distanceKm: 5.91,
+    azimuthDeg: 120,
+    altitudeMeters: 145,
+    speedKmh: 92,
+    headingDeg: 300,
+    rfFrequencyGhz: 5.815,
+    rssiDbm: -65,
+    protocol: 'ExpressLRS Mesh 868MHz',
+    payloadEstimate: 'High-Explosive FPV Warhead',
+    originSector: 'SOUTH-EAST',
+    status: 'ACTIVE',
+    firstDetected: '10:44:20',
+    lastUpdated: '10:45:00',
+    history: [
+      { x: 5.8, y: -3.6 },
+      { x: 5.1, y: -3.0 }
+    ],
+    etaToPerimeterSeconds: 132,
+    batteryPercent: 70
+  },
+  {
+    id: 'TRK-1055',
+    callsign: 'DEFENDER-PATROL-4',
+    classification: 'tactical-quad',
+    iff: 'friendly',
+    threatLevel: 'LOW',
+    x: -1.2,
+    y: -1.5,
+    distanceKm: 1.92,
+    azimuthDeg: 218,
+    altitudeMeters: 80,
+    speedKmh: 35,
+    headingDeg: 45,
+    rfFrequencyGhz: 5.180,
+    rssiDbm: -42,
+    protocol: 'STANAG 4586 Military SafeLink',
+    payloadEstimate: 'FLIR Thermal Sentry Pod',
+    originSector: 'SOUTH-WEST',
+    status: 'ACTIVE',
+    firstDetected: '10:15:00',
+    lastUpdated: '10:45:00',
+    history: [
+      { x: -1.8, y: -2.1 },
+      { x: -1.5, y: -1.8 },
+      { x: -1.2, y: -1.5 }
+    ],
+    etaToPerimeterSeconds: 999,
+    batteryPercent: 82
+  },
+  {
+    id: 'TRK-4490',
+    callsign: 'UNKNOWN-CONTACT-7',
+    classification: 'commercial-diy',
+    iff: 'unknown',
+    threatLevel: 'MEDIUM',
+    x: -0.5,
+    y: 5.2,
+    distanceKm: 5.22,
+    azimuthDeg: 354,
+    altitudeMeters: 210,
+    speedKmh: 42,
+    headingDeg: 174,
+    rfFrequencyGhz: 2.412,
+    rssiDbm: -78,
+    protocol: 'Wi-Fi Broadcast (Unencrypted)',
+    payloadEstimate: 'Commercial 4K Gimbal',
+    originSector: 'NORTH',
+    status: 'ACTIVE',
+    firstDetected: '10:42:50',
+    lastUpdated: '10:45:00',
+    history: [
+      { x: -0.4, y: 6.2 },
+      { x: -0.5, y: 5.2 }
+    ],
+    etaToPerimeterSeconds: 232,
+    batteryPercent: 55
+  }
+];
+
+export const INITIAL_EVENTS: SecurityEvent[] = [
+  {
+    id: 'EVT-109',
+    timestamp: '10:44:20',
+    severity: 'CRITICAL',
+    title: 'Multiple Swarm Signatures Detected',
+    message: 'Coordinated dual-node FPV micro-swarm detected in Sector SOUTH-EAST. Ingress vector 300° at 95 km/h.',
+    trackId: 'TRK-3341',
+    operator: 'SYSTEM-AUTO',
+    acknowledged: false
+  },
+  {
+    id: 'EVT-108',
+    timestamp: '10:43:05',
+    severity: 'CRITICAL',
+    title: 'High-Speed Ingress Breaching Radar Gate 2',
+    message: 'KHAIBAR-DELTA (Fixed-Wing) radar cross-section identified. Speed 185 km/h, altitude 1120m.',
+    trackId: 'TRK-9104',
+    operator: 'RADAR-SIGINT',
+    acknowledged: false
+  },
+  {
+    id: 'EVT-107',
+    timestamp: '10:41:12',
+    severity: 'WARNING',
+    title: 'Hostile C2 Signal Triangulated',
+    message: 'RF sensor array locked onto 2.442 GHz frequency hopping source (TRK-7082). Distance 4.25 km.',
+    trackId: 'TRK-7082',
+    operator: 'RF-DIRECTION-FINDER',
+    acknowledged: true
+  },
+  {
+    id: 'EVT-106',
+    timestamp: '10:35:40',
+    severity: 'SUCCESS',
+    title: 'Countermeasure Test Passed',
+    message: 'Multi-band directional RF jammer calibration verified across 433MHz, 900MHz, 2.4GHz, and 5.8GHz.',
+    operator: 'MAJOR_SHARMA',
+    acknowledged: true
+  },
+  {
+    id: 'EVT-105',
+    timestamp: '10:30:00',
+    severity: 'INFO',
+    title: 'Airspace Perimeter Guard Active',
+    message: 'AEGIS AIR C-UAS System initialized. Active surveillance radius set to 10.0 km.',
+    operator: 'SYSTEM',
+    acknowledged: true
+  }
+];
+
+export const INITIAL_KPIS: SystemKPIs = {
+  defconLevel: 2,
+  activeTracks: 6,
+  hostileThreats: 4,
+  neutralizedThreats: 0,
+  radarSweepSpeedRpm: 30,
+  jammerReadinessPercent: 100,
+  interceptorDronesAvailable: 4,
+  perimeterBreaches24h: 3,
+  airspaceIntegrityScore: 84,
+  rfSensorHealth: 98,
+  audioAlertsEnabled: true,
+  simulationRunning: true,
+  simulationSpeed: 1
+};
