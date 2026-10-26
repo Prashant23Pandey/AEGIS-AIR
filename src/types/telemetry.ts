@@ -123,4 +123,4 @@ export interface PerformanceTimings {
 
 export type ScenarioType = 'BASELINE' | 'SWARM' | 'KAMIKAZE' | 'RECON' | 'DEGRADATION';
 
-export type ActiveTab = 'overview' | 'tracks' | 'events' | 'analytics' | 'reports';
+export type ActiveTab = 'overview' | 'tracks' | 'events' | 'analytics' | 'reports' | 'stress-lab';

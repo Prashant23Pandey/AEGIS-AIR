@@ -30,9 +30,30 @@
 # Clone or navigate into the project workspace
 cd "c:/Users/prash/OneDrive/Desktop/New folder (2)"
 
-# Install verified dependencies
+# Install verified dependencies (including @supabase/supabase-js)
 npm install
 ```
+
+### Supabase Authentication & Database Configuration
+
+AEGIS AIR is connected to your Supabase project with Row Level Security (RLS) and persistent session handling.
+
+1. **Environment Variables**:
+   Create or verify `.env` in the root directory (already added to `.gitignore`):
+   ```env
+   VITE_SUPABASE_URL=https://dwzmuukjolqunpjetpal.supabase.co
+   VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_Xkd8XoYczKmAooDosUGcxw_V2-5f4Ra
+   ```
+   > **Security Note**: Never expose the Supabase `service_role` secret key in frontend code. Only the publishable key is used.
+
+2. **Run the Database SQL Migration**:
+   To set up the `profiles` table and Row Level Security policies:
+   - Navigate to your Supabase Dashboard: [https://supabase.com/dashboard/project/dwzmuukjolqunpjetpal](https://supabase.com/dashboard/project/dwzmuukjolqunpjetpal)
+   - Click on the **SQL Editor** tab in the left-hand navigation bar.
+   - Click **+ New query**.
+   - Copy and paste the contents of `supabase/migrations/20261026_create_profiles.sql`.
+   - Click **Run** (or press `Ctrl` + `Enter`).
+   - The `public.profiles` table is now secured with RLS policies allowing users to only read and modify their own records.
 
 ### Running Locally (Development Server)
 ```bash
@@ -49,9 +70,8 @@ Executes `tsc -b && vite build`. Produces optimized production artifacts in `dis
 ### Static Analysis & Linter Verification
 ```bash
 npm run lint
-# or: npx oxlint
 ```
-Verified with **0 errors and 0 warnings** across all 33 TypeScript files.
+Verified with **0 errors and 0 warnings** across all TypeScript files.
 
 ---
 

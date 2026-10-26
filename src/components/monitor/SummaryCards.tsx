@@ -10,40 +10,40 @@ export const SummaryCards: React.FC = () => {
 
   const cards = [
     {
-      index: '01 / 04',
+      index: '01',
       tag: 'AIRSPACE',
       label: 'Active Radar Contacts',
       value: activeTracks,
       sub: `${kpis.hostileThreats} flagged unverified`,
-      icon: <Crosshair className="w-4 h-4 text-indigo-600" />,
-      tagColor: 'text-amber-700',
+      icon: <Crosshair className="w-4 h-4 text-pitch-black" />,
+      tagBadge: 'bg-creator-pink text-pitch-black',
     },
     {
-      index: '02 / 04',
+      index: '02',
       tag: 'TELEMETRY',
       label: 'Sensor Clock Rate',
       value: `${kpis.simulationSpeed}× real-time`,
       sub: kpis.simulationRunning ? 'Continuous pulse' : 'Stream paused',
-      icon: <Activity className="w-4 h-4 text-emerald-600" />,
-      tagColor: 'text-indigo-700',
+      icon: <Activity className="w-4 h-4 text-pitch-black" />,
+      tagBadge: 'bg-lime-glow text-pitch-black',
     },
     {
-      index: '03 / 04',
+      index: '03',
       tag: 'INCIDENTS',
       label: 'Pending Incursions',
       value: recentEvents,
       sub: `${events.length} total events archived`,
-      icon: <AlertTriangle className="w-4 h-4 text-rose-600" />,
-      tagColor: recentEvents > 0 ? 'text-rose-700' : 'text-stone-500',
+      icon: <AlertTriangle className="w-4 h-4 text-pitch-black" />,
+      tagBadge: recentEvents > 0 ? 'bg-orange-fire text-white' : 'bg-sunshine-yellow text-pitch-black',
     },
     {
-      index: '04 / 04',
+      index: '04',
       tag: 'READINESS',
       label: 'Defense Perimeter',
       value: `${kpis.airspaceIntegrityScore}%`,
       sub: `RF triangulation: ${kpis.rfSensorHealth}%`,
-      icon: <ShieldCheck className="w-4 h-4 text-indigo-600" />,
-      tagColor: 'text-emerald-700',
+      icon: <ShieldCheck className="w-4 h-4 text-pitch-black" />,
+      tagBadge: 'bg-[#C7D2FE] text-pitch-black',
     },
   ];
 
@@ -52,23 +52,23 @@ export const SummaryCards: React.FC = () => {
       {cards.map(c => (
         <div
           key={c.label}
-          className="rounded-2xl border border-border bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,0.02)] hover:border-stone-300 transition-all flex flex-col justify-between"
+          className="pop-card bg-white p-5 rounded-2xl flex flex-col justify-between"
         >
           <div>
             <div className="flex items-center justify-between text-[11px] mb-2 font-mono">
-              <span className="text-stone-400">{c.index}</span>
-              <span className={`font-semibold tracking-widest text-[10px] ${c.tagColor}`}>
+              <span className="font-bold text-pitch-black/60 tracking-wider">{c.index}</span>
+              <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-extrabold border border-pitch-black shadow-[1px_1px_0px_#0D0D0D] ${c.tagBadge}`}>
                 {c.tag}
               </span>
             </div>
-            <div className="text-xs text-stone-500 font-medium">{c.label}</div>
-            <div className="text-3xl font-serif italic text-stone-900 mt-1 tracking-tight">
+            <div className="text-xs text-stone-600 font-semibold uppercase tracking-wider">{c.label}</div>
+            <div className="text-3xl sm:text-4xl font-display font-extrabold text-pitch-black mt-1.5 tracking-[-0.04em]">
               {c.value}
             </div>
           </div>
-          <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-stone-100 text-xs text-stone-500">
+          <div className="flex items-center justify-between mt-4 pt-3 border-t border-stone-200 text-xs font-mono text-stone-600">
             <span>{c.sub}</span>
-            <div className="p-1 rounded-lg bg-stone-50 border border-stone-100">{c.icon}</div>
+            <div className="p-1.5 rounded-full bg-light-linen border border-pitch-black shadow-[1px_1px_0px_#0D0D0D]">{c.icon}</div>
           </div>
         </div>
       ))}

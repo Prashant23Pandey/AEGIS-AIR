@@ -91,30 +91,30 @@ export const MonitorView: React.FC = () => {
       />
 
       {/* Map Mode Navigation Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-white px-5 py-3 rounded-2xl border border-border shadow-[0_1px_3px_rgba(0,0,0,0.02)] gap-3">
-        <div className="flex items-center gap-2.5">
-          <div className="p-1.5 rounded-xl bg-indigo-50 border border-indigo-200/60 text-indigo-600">
+      <div className="pop-card flex flex-col sm:flex-row sm:items-center justify-between bg-white px-5 py-3.5 rounded-2xl gap-3">
+        <div className="flex items-center gap-3">
+          <div className="p-2 rounded-xl bg-sunshine-yellow border border-pitch-black text-pitch-black shadow-[1px_1px_0px_#0D0D0D]">
             <Compass className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="font-serif italic text-base text-stone-900 font-medium leading-none">
+            <h3 className="font-display font-extrabold text-base text-pitch-black leading-none tracking-[-0.03em]">
               Airspace Tactical Projection
             </h3>
-            <p className="text-2xs text-stone-500 mt-0.5 font-mono">
-              Mode: {mapMode === 'schematic' ? '±10 km Orthographic Vector Grid' : 'Geographic WGS84 Leaflet Overlay'}
+            <p className="text-2xs text-stone-600 mt-1 font-mono">
+              Projection: {mapMode === 'schematic' ? '±10 km Orthographic Vector Radar' : 'Geographic WGS84 Real-World GIS'}
             </p>
           </div>
         </div>
 
         {/* View Toggle */}
         <div className="flex items-center gap-2">
-          <div className="flex items-center rounded-xl border border-stone-200 bg-stone-100/70 p-0.5">
+          <div className="flex items-center gap-1.5 p-1 bg-light-linen border border-pitch-black rounded-full shadow-[1px_1px_0px_#0D0D0D]">
             <button
               onClick={() => setMapMode('schematic')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              className={`flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold transition-all ${
                 mapMode === 'schematic'
-                  ? 'bg-accent-cyan text-white shadow-xs font-semibold'
-                  : 'text-stone-600 hover:text-stone-900'
+                  ? 'bg-pitch-black text-white shadow-xs'
+                  : 'text-pitch-black hover:bg-white'
               }`}
             >
               <Compass className="w-3.5 h-3.5" />
@@ -122,10 +122,10 @@ export const MonitorView: React.FC = () => {
             </button>
             <button
               onClick={() => setMapMode('geographic')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              className={`flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold transition-all ${
                 mapMode === 'geographic'
-                  ? 'bg-accent-cyan text-white shadow-xs font-semibold'
-                  : 'text-stone-600 hover:text-stone-900'
+                  ? 'bg-pitch-black text-white shadow-xs'
+                  : 'text-pitch-black hover:bg-white'
               }`}
             >
               <MapIcon className="w-3.5 h-3.5" />
@@ -136,9 +136,9 @@ export const MonitorView: React.FC = () => {
       </div>
 
       {/* Main grid: Map + Sidebar */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
         {/* Map Display (Switches seamlessly between Schematic and Geographic) */}
-        <div className="lg:col-span-8 xl:col-span-8">
+        <div className="lg:col-span-8 xl:col-span-8 flex flex-col">
           {mapMode === 'schematic' ? (
             <AirspaceMap />
           ) : (

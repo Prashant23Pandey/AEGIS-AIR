@@ -16,43 +16,43 @@ export const EventTicker: React.FC = () => {
   const recent = events.slice(0, 5);
 
   return (
-    <div className="rounded-2xl border border-border bg-white shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
-      <div className="flex items-center justify-between px-5 py-3 border-b border-border bg-stone-50/50">
+    <div className="pop-card rounded-2xl bg-white border border-pitch-black shadow-[2px_2px_0px_#0D0D0D] overflow-hidden">
+      <div className="flex items-center justify-between px-5 py-3 border-b border-pitch-black bg-surface-0">
         <div className="flex items-center gap-2">
-          <h2 className="font-serif italic text-base text-stone-900 font-medium">Recent Incident Ticker</h2>
-          <span className="text-[10px] uppercase font-mono tracking-wider px-2 py-0.5 rounded-full bg-stone-100 text-stone-500">
-            Real-Time Feed
+          <h2 className="font-display font-extrabold text-base text-pitch-black tracking-tight">Recent Incident Ticker</h2>
+          <span className="text-[10px] uppercase font-mono font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-sunshine-yellow text-pitch-black border border-pitch-black shadow-[1px_1px_0px_#0D0D0D]">
+            LIVE FEED
           </span>
         </div>
         <button
           onClick={() => setActiveTab('events')}
-          className="text-xs text-indigo-600 hover:text-indigo-800 transition-colors font-medium flex items-center gap-1"
+          className="btn-pop px-3 py-1 rounded-full text-xs font-bold bg-white hover:bg-creator-pink text-pitch-black border border-pitch-black shadow-[1.5px_1.5px_0px_#0D0D0D] transition-all flex items-center gap-1"
         >
-          <span>View all incidents</span>
+          <span>View all</span>
           <span>→</span>
         </button>
       </div>
-      <div className="divide-y divide-stone-100">
+      <div className="divide-y divide-border-subtle">
         {recent.map(evt => (
           <div
             key={evt.id}
             className={`px-5 py-2.5 flex items-start gap-3 transition-colors ${
-              !evt.acknowledged && evt.severity === 'CRITICAL' ? 'bg-rose-50/40' :
-              !evt.acknowledged && evt.severity === 'WARNING' ? 'bg-amber-50/30' : 'hover:bg-stone-50/60'
+              !evt.acknowledged && evt.severity === 'CRITICAL' ? 'bg-red-500/10' :
+              !evt.acknowledged && evt.severity === 'WARNING' ? 'bg-sunshine-yellow/15' : 'hover:bg-surface-2/60'
             }`}
           >
             <span className="mt-0.5 flex-shrink-0">{severityIcon(evt.severity)}</span>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2.5">
-                <span className="text-xs font-semibold text-stone-900 truncate">{evt.title}</span>
-                <span className="text-[11px] text-stone-400 font-mono flex-shrink-0">{evt.timestamp}</span>
+                <span className="text-xs font-display font-bold text-pitch-black truncate">{evt.title}</span>
+                <span className="text-[11px] text-ink-500 font-mono font-medium flex-shrink-0">{evt.timestamp}</span>
               </div>
-              <p className="text-xs text-stone-500 mt-0.5 truncate">{evt.message}</p>
+              <p className="text-xs text-ink-700 mt-0.5 truncate">{evt.message}</p>
             </div>
             {!evt.acknowledged && (
               <button
                 onClick={() => acknowledgeEvent(evt.id)}
-                className="text-2xs px-2.5 py-1 rounded-lg border border-stone-200 bg-white hover:bg-stone-50 text-stone-700 hover:text-stone-900 flex-shrink-0 transition-all shadow-xs"
+                className="btn-pop text-2xs px-2.5 py-1 rounded-full border border-pitch-black bg-white hover:bg-creator-pink text-pitch-black font-bold flex-shrink-0 shadow-[1px_1px_0px_#0D0D0D]"
               >
                 Acknowledge
               </button>

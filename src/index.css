@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -9,7 +9,6 @@
   *::before,
   *::after {
     box-sizing: border-box;
-    font-family: 'Playfair Display', 'Instrument Serif', 'Cormorant Garamond', Georgia, serif;
   }
 
   html {
@@ -20,25 +19,111 @@
 
   body {
     margin: 0;
-    background-color: #FAF8F5;
-    color: #0F172A;
-    font-family: 'Playfair Display', 'Instrument Serif', 'Cormorant Garamond', Georgia, serif;
+    background-color: #F9F9F7;
+    color: #0D0D0D;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   }
 
-  button, input, select, textarea, table, th, td {
-    font-family: 'Playfair Display', 'Instrument Serif', 'Cormorant Garamond', Georgia, serif;
+  h1, h2, h3, h4, h5, h6, .font-display, .font-serif {
+    font-family: 'Syne', sans-serif !important;
+    letter-spacing: -0.035em;
   }
+
+  code, pre, .font-mono {
+    font-family: 'Space Mono', monospace !important;
+  }
+}
+
+/* Dotted grid background inspired by svg-scroll-draw */
+.dot-grid {
+  background-image: radial-gradient(rgba(13, 13, 13, 0.12) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Continuous marquee ticker banner */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 22s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* SVG Stroke drawing pulse animation */
+@keyframes drawStroke {
+  0% { stroke-dashoffset: 400; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.animate-draw {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: drawStroke 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Tactile Pop Buttons & Cards from svg-scroll-draw */
+.pop-card {
+  border: 1px solid #0D0D0D;
+  box-shadow: 2px 2px 0px #0D0D0D;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pop-card:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px #0D0D0D;
+}
+
+.btn-pop {
+  border: 1px solid #0D0D0D;
+  box-shadow: 2px 2px 0px #0D0D0D;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-pop:hover {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px #0D0D0D;
+}
+.btn-pop:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px #0D0D0D;
+}
+
+/* Pink highlighter marker badge */
+.marker-pink {
+  position: relative;
+  display: inline-block;
+  background-color: #FF90E8;
+  color: #0D0D0D;
+  transform: rotate(-1deg);
+  border-radius: 6px;
+  padding: 1px 6px;
+  font-weight: 800;
+}
+
+.marker-yellow {
+  position: relative;
+  display: inline-block;
+  background-color: #FFC700;
+  color: #0D0D0D;
+  transform: rotate(0.8deg);
+  border-radius: 6px;
+  padding: 1px 6px;
+  font-weight: 800;
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #FAF8F5; }
-::-webkit-scrollbar-thumb { background: #D6D3D1; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #A8A29E; }
+::-webkit-scrollbar-track { background: #F9F9F7; }
+::-webkit-scrollbar-thumb { background: #0D0D0D; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #333333; }
 
 /* Focus ring for accessibility */
 :focus-visible {
-  outline: 2px solid #4F46E5;
+  outline: 2px solid #0D0D0D;
   outline-offset: 2px;
 }
 

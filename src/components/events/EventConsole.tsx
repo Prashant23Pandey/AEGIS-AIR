@@ -55,34 +55,34 @@ export const EventConsole: React.FC = () => {
   return (
     <div className="space-y-4">
       {/* Editorial Header & Filter Bar */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-2xl border border-border bg-white px-6 py-4 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
+      <div className="pop-card flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-2xl border border-pitch-black bg-white px-6 py-4 shadow-[2px_2px_0px_#0D0D0D]">
         <div>
           <div className="flex items-center gap-2.5">
-            <h2 className="font-serif italic text-2xl text-stone-900 font-medium">Incident Audit Console</h2>
-            <span className="text-[10px] font-mono tracking-widest uppercase px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-600">
+            <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-pitch-black tracking-tight">Incident Audit Console</h2>
+            <span className="text-[10px] font-mono font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full bg-sunshine-yellow text-pitch-black border border-pitch-black shadow-[1px_1px_0px_#0D0D0D]">
               02 / INCIDENTS
             </span>
           </div>
-          <p className="text-xs text-stone-500 mt-1 italic font-serif">
+          <p className="text-xs text-ink-500 mt-1 font-mono">
             {events.length} chronological air telemetry events registered · Cryptographic simulation audit trail
           </p>
         </div>
 
         <div className="flex items-center gap-2.5 flex-wrap">
-          <div className="flex items-center gap-1 bg-stone-100/70 p-1 rounded-xl border border-stone-200">
+          <div className="flex items-center gap-1 bg-surface-2 p-1 rounded-full border border-pitch-black shadow-[1.5px_1.5px_0px_#0D0D0D]">
             {(['ALL', 'CRITICAL', 'WARNING', 'INFO', 'SUCCESS'] as const).map(sev => {
               const active = filter === sev;
               return (
                 <button
                   key={sev}
                   onClick={() => setFilter(sev)}
-                  className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
+                  className={`px-3 py-1 rounded-full text-xs font-mono font-bold transition-all ${
                     active
-                      ? 'bg-accent-cyan text-white shadow-xs'
-                      : 'text-stone-600 hover:text-stone-900'
+                      ? 'bg-pitch-black text-white shadow-xs'
+                      : 'text-pitch-black hover:bg-white'
                   }`}
                 >
-                  {sev === 'ALL' ? 'All' : sev.charAt(0) + sev.slice(1).toLowerCase()}
+                  {sev === 'ALL' ? 'ALL' : sev}
                 </button>
               );
             })}
@@ -90,18 +90,18 @@ export const EventConsole: React.FC = () => {
 
           <button
             onClick={clearResolvedEvents}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-stone-200 bg-white hover:bg-stone-50 text-xs text-stone-600 hover:text-stone-900 transition-all shadow-xs"
+            className="btn-pop flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-pitch-black bg-white hover:bg-creator-pink/20 text-xs font-bold text-pitch-black transition-all shadow-[1.5px_1.5px_0px_#0D0D0D]"
           >
-            <Trash2 className="w-3.5 h-3.5 text-stone-400" />
+            <Trash2 className="w-3.5 h-3.5 text-pitch-black" />
             <span>Clear resolved</span>
           </button>
         </div>
       </div>
 
       {/* Incident List */}
-      <div className="rounded-2xl border border-border bg-white shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden divide-y divide-stone-100">
+      <div className="pop-card rounded-2xl border border-pitch-black bg-white shadow-[2px_2px_0px_#0D0D0D] overflow-hidden divide-y divide-border-subtle">
         {filtered.length === 0 ? (
-          <div className="px-6 py-16 text-center text-sm text-stone-400 italic font-serif">
+          <div className="px-6 py-16 text-center text-sm text-ink-400 font-mono">
             No incidents match the active severity filter.
           </div>
         ) : (
@@ -111,7 +111,7 @@ export const EventConsole: React.FC = () => {
               <div
                 key={evt.id}
                 className={`px-6 py-4 flex flex-col sm:flex-row items-start gap-4 border-l-4 transition-colors ${
-                  !evt.acknowledged ? cfg.rowBg : 'border-l-transparent hover:bg-stone-50/60'
+                  !evt.acknowledged ? cfg.rowBg : 'border-l-transparent hover:bg-surface-2/60'
                 }`}
               >
                 {/* Left: Icon + Content */}
@@ -119,27 +119,32 @@ export const EventConsole: React.FC = () => {
                   <span className="mt-0.5 flex-shrink-0">{cfg.icon}</span>
                   <div className="min-w-0">
                     <div className="flex items-center gap-2.5 flex-wrap">
-                      <span className="text-sm font-semibold text-stone-900">{evt.title}</span>
-                      <span className={`text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full border ${cfg.badge}`}>
+                      <span className="text-sm font-display font-bold text-pitch-black">{evt.title}</span>
+                      <span className={`text-[10px] font-mono uppercase font-bold tracking-wider px-2 py-0.5 rounded-full border border-pitch-black shadow-[1px_1px_0px_#0D0D0D] ${
+                        evt.severity === 'CRITICAL' ? 'bg-red-500 text-white' :
+                        evt.severity === 'WARNING' ? 'bg-sunshine-yellow text-pitch-black' :
+                        evt.severity === 'SUCCESS' ? 'bg-lime-glow text-pitch-black' :
+                        'bg-white text-pitch-black'
+                      }`}>
                         {evt.severity}
                       </span>
                     </div>
-                    <p className="text-xs text-stone-600 mt-1 leading-relaxed">{evt.message}</p>
-                    <div className="flex items-center gap-3.5 mt-2 text-2xs text-stone-400 font-mono flex-wrap">
+                    <p className="text-xs text-ink-700 mt-1 leading-relaxed">{evt.message}</p>
+                    <div className="flex items-center gap-3.5 mt-2 text-2xs text-ink-500 font-mono flex-wrap">
                       <span className="flex items-center gap-1">
-                        <Clock className="w-3 h-3 text-stone-400" /> {evt.timestamp}
+                        <Clock className="w-3 h-3 text-pitch-black" /> {evt.timestamp}
                       </span>
                       <span>Source: {evt.operator}</span>
                       {evt.trackId && (
                         <button
                           onClick={() => handleGoToTrack(evt.trackId)}
-                          className="flex items-center gap-1 text-indigo-600 hover:text-indigo-800 font-semibold transition-colors font-sans"
+                          className="btn-pop px-2 py-0.5 rounded-full bg-white border border-pitch-black shadow-[1px_1px_0px_#0D0D0D] flex items-center gap-1 text-pitch-black font-bold transition-colors"
                         >
-                          <Crosshair className="w-3 h-3" /> View track {evt.trackId}
+                          <Crosshair className="w-3 h-3 text-creator-pink" /> View track {evt.trackId}
                         </button>
                       )}
                       {evt.actionTaken && (
-                        <span className="text-amber-800 font-sans font-medium">Action: {evt.actionTaken}</span>
+                        <span className="text-pitch-black bg-sunshine-yellow/40 border border-pitch-black px-2 py-0.5 rounded-full font-mono font-bold text-[10px]">Action: {evt.actionTaken}</span>
                       )}
                     </div>
                   </div>
@@ -150,13 +155,13 @@ export const EventConsole: React.FC = () => {
                   {!evt.acknowledged ? (
                     <button
                       onClick={() => acknowledgeEvent(evt.id)}
-                      className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-stone-200 bg-white hover:bg-stone-50 text-xs font-medium text-stone-700 hover:text-stone-900 transition-all shadow-xs"
+                      className="btn-pop flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-pitch-black bg-lime-glow hover:bg-lime-acid text-xs font-mono font-bold text-pitch-black transition-all shadow-[1.5px_1.5px_0px_#0D0D0D]"
                     >
-                      <Check className="w-3.5 h-3.5 text-indigo-600" />
+                      <Check className="w-3.5 h-3.5 text-pitch-black stroke-[3]" />
                       <span>Acknowledge</span>
                     </button>
                   ) : (
-                    <span className="flex items-center gap-1.5 text-xs text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-2.5 py-1 rounded-xl">
+                    <span className="flex items-center gap-1.5 text-xs font-mono font-bold text-pitch-black bg-white border border-pitch-black shadow-[1px_1px_0px_#0D0D0D] px-2.5 py-1 rounded-full">
                       <CheckCircle className="w-3.5 h-3.5 text-emerald-600" />
                       <span>Acknowledged</span>
                     </span>

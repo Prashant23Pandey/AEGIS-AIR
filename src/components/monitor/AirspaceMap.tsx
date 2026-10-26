@@ -13,10 +13,10 @@ const RESTRICTED_ZONES = [
 
 const iffColor = (iff: string): string => {
   switch (iff) {
-    case 'hostile': return '#DC2626'; // crimson
-    case 'friendly': return '#059669'; // forest emerald
+    case 'hostile': return '#EF4444'; // neon coral/red
+    case 'friendly': return '#70FF00'; // electric lime
     case 'neutral': return '#64748B'; // slate
-    default: return '#D97706'; // terracotta amber
+    default: return '#FFC700'; // sunshine yellow
   }
 };
 
@@ -110,8 +110,8 @@ export const AirspaceMap: React.FC = () => {
     }
 
     // Axis coordinate labels
-    ctx.fillStyle = '#64748B';
-    ctx.font = 'italic 11px "Playfair Display", Georgia, serif';
+    ctx.fillStyle = '#686864';
+    ctx.font = 'bold 10px "Space Mono", monospace';
     ctx.textAlign = 'center';
     for (let km = -GRID_KM; km <= GRID_KM; km += 4) {
       const { px } = toPixel(km, 0, w, h);
@@ -143,30 +143,30 @@ export const AirspaceMap: React.FC = () => {
         ctx.stroke();
         ctx.restore();
 
-        ctx.fillStyle = '#4F46E5';
-        ctx.font = 'italic 600 12px "Playfair Display", Georgia, serif';
+        ctx.fillStyle = '#0D0D0D';
+        ctx.font = 'bold 11px "Syne", sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText(zone.label, px, py - rPx - 6);
+        ctx.fillText(zone.label.toUpperCase(), px, py - rPx - 6);
       } else {
-        // Perimeter restricted zones - Soft Terracotta / Rose
-        ctx.fillStyle = 'rgba(220, 38, 38, 0.04)';
+        // Perimeter restricted zones
+        ctx.fillStyle = 'rgba(239, 68, 68, 0.05)';
         ctx.beginPath();
         ctx.arc(px, py, rPx, 0, Math.PI * 2);
         ctx.fill();
 
         ctx.save();
         ctx.setLineDash([4, 4]);
-        ctx.strokeStyle = 'rgba(220, 38, 38, 0.3)';
-        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'rgba(239, 68, 68, 0.5)';
+        ctx.lineWidth = 1.25;
         ctx.beginPath();
         ctx.arc(px, py, rPx, 0, Math.PI * 2);
         ctx.stroke();
         ctx.restore();
 
-        ctx.fillStyle = '#DC2626';
-        ctx.font = 'italic 500 11px "Playfair Display", Georgia, serif';
+        ctx.fillStyle = '#EF4444';
+        ctx.font = 'bold 10px "Syne", sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText(zone.label, px, py - rPx - 5);
+        ctx.fillText(zone.label.toUpperCase(), px, py - rPx - 5);
       }
     });
 
@@ -215,8 +215,8 @@ export const AirspaceMap: React.FC = () => {
     ctx.restore();
 
     // Range labels
-    ctx.fillStyle = '#6366F1';
-    ctx.font = 'italic 10px "Playfair Display", Georgia, serif';
+    ctx.fillStyle = '#686864';
+    ctx.font = 'bold 9px "Space Mono", monospace';
     ctx.textAlign = 'left';
     [2.5, 5, 7.5].forEach(r => {
       const rPx = (r / (GRID_KM * 2)) * drawW;
@@ -224,8 +224,8 @@ export const AirspaceMap: React.FC = () => {
     });
 
     // Cardinal directions
-    ctx.fillStyle = '#475569';
-    ctx.font = 'italic bold 13px "Playfair Display", Georgia, serif';
+    ctx.fillStyle = '#0D0D0D';
+    ctx.font = '800 12px "Syne", sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('N', centerPx.px, pad - 8);
     ctx.fillText('S', centerPx.px, pad + drawH + 18);
@@ -287,11 +287,18 @@ export const AirspaceMap: React.FC = () => {
       ctx.translate(px, py);
 
       // Selection ring in Royal Indigo
+      // Selection ring with Creator Pink pop accent
       if (selected) {
-        ctx.strokeStyle = '#4F46E5';
-        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#FF90E8';
+        ctx.lineWidth = 2.5;
         ctx.beginPath();
-        ctx.arc(0, 0, 13, 0, Math.PI * 2);
+        ctx.arc(0, 0, 14, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.strokeStyle = '#0D0D0D';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(0, 0, 16, 0, Math.PI * 2);
         ctx.stroke();
       }
 
@@ -305,7 +312,7 @@ export const AirspaceMap: React.FC = () => {
       ctx.stroke();
 
       // Diamond marker
-      const s = selected ? 6.5 : 5.5;
+      const s = selected ? 7 : 5.5;
       ctx.fillStyle = color;
       ctx.beginPath();
       ctx.moveTo(0, -s);
@@ -315,17 +322,22 @@ export const AirspaceMap: React.FC = () => {
       ctx.closePath();
       ctx.fill();
 
+      // Black outline for crisp neo-brutalist pop
+      ctx.strokeStyle = '#0D0D0D';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
       ctx.restore();
 
-      // Callsign label in deep ink for crisp contrast
-      ctx.fillStyle = selected ? '#4F46E5' : '#0F172A';
-      ctx.font = `italic ${selected ? '700' : '600'} 12px "Playfair Display", Georgia, serif`;
+      // Callsign label in Syne Bold
+      ctx.fillStyle = selected ? '#0D0D0D' : '#0D0D0D';
+      ctx.font = `800 ${selected ? '13px' : '11px'} "Syne", sans-serif`;
       ctx.textAlign = 'left';
       ctx.fillText(track.callsign, px + 12, py - 4);
 
-      // Altitude tag in italic serif
-      ctx.fillStyle = '#64748B';
-      ctx.font = 'italic 10px "Playfair Display", Georgia, serif';
+      // Altitude tag in Space Mono
+      ctx.fillStyle = '#686864';
+      ctx.font = 'bold 9px "Space Mono", monospace';
       ctx.fillText(`${track.altitudeMeters}m · ${track.speedKmh}km/h`, px + 12, py + 8);
     });
 
@@ -346,57 +358,57 @@ export const AirspaceMap: React.FC = () => {
   }, []);
 
   return (
-    <div className="rounded-2xl border border-border bg-white shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between px-5 py-3.5 border-b border-border gap-3">
+    <div className="pop-card rounded-2xl bg-white border border-pitch-black shadow-[2px_2px_0px_#0D0D0D] overflow-hidden flex flex-col h-full">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between px-5 py-3.5 border-b border-pitch-black bg-surface-0 gap-3">
         <div>
-          <h2 className="font-serif italic text-lg text-stone-900 font-medium">Airspace Vector Plot</h2>
-          <p className="text-2xs text-stone-400 font-sans">Simulated ±10 km grid coordinate coverage</p>
+          <h2 className="font-display font-extrabold text-lg text-pitch-black tracking-tight">Airspace Vector Plot</h2>
+          <p className="text-2xs text-ink-500 font-mono">Simulated ±10 km grid coordinate coverage</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <div className="flex items-center gap-3 text-2xs text-stone-500 mr-2 font-mono">
-            <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-red-600 inline-block" /> Hostile</span>
-            <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-emerald-600 inline-block" /> Friendly</span>
-            <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-amber-600 inline-block" /> Unknown</span>
-            <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-slate-400 inline-block" /> Neutral</span>
+          <div className="flex items-center gap-3 text-2xs text-pitch-black mr-2 font-mono font-bold">
+            <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-red-500 border border-pitch-black inline-block" /> Hostile</span>
+            <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-lime-glow border border-pitch-black inline-block" /> Friendly</span>
+            <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-sunshine-yellow border border-pitch-black inline-block" /> Unknown</span>
+            <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-slate-400 border border-pitch-black inline-block" /> Neutral</span>
           </div>
 
-          <div className="flex items-center gap-1.5 border-l border-stone-200 pl-2">
+          <div className="flex items-center gap-1.5 border-l border-pitch-black/20 pl-2">
             <button
               onClick={() => injectThreat('SWARM')}
-              className="flex items-center gap-1 px-3 py-1 rounded-xl text-xs font-medium bg-stone-50 hover:bg-indigo-50 border border-stone-200 hover:border-indigo-200 text-stone-700 hover:text-indigo-600 transition-all shadow-xs"
+              className="btn-pop flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-white hover:bg-creator-pink/30 border border-pitch-black shadow-[1.5px_1.5px_0px_#0D0D0D] text-pitch-black transition-all"
               title="Inject simulated swarm scenario"
             >
-              <Plus className="w-3 h-3 text-indigo-600" />
+              <Plus className="w-3 h-3 text-pitch-black" />
               <span>Swarm</span>
             </button>
             <button
               onClick={() => injectThreat('KAMIKAZE')}
-              className="flex items-center gap-1 px-3 py-1 rounded-xl text-xs font-medium bg-stone-50 hover:bg-rose-50 border border-stone-200 hover:border-rose-200 text-stone-700 hover:text-rose-600 transition-all shadow-xs"
+              className="btn-pop flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-white hover:bg-creator-pink/30 border border-pitch-black shadow-[1.5px_1.5px_0px_#0D0D0D] text-pitch-black transition-all"
               title="Inject simulated fast approach scenario"
             >
-              <Plus className="w-3 h-3 text-rose-600" />
+              <Plus className="w-3 h-3 text-pitch-black" />
               <span>Fast Approach</span>
             </button>
             <button
               onClick={() => injectThreat('RECON')}
-              className="flex items-center gap-1 px-3 py-1 rounded-xl text-xs font-medium bg-stone-50 hover:bg-amber-50 border border-stone-200 hover:border-amber-200 text-stone-700 hover:text-amber-700 transition-all shadow-xs"
+              className="btn-pop flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-white hover:bg-sunshine-yellow/40 border border-pitch-black shadow-[1.5px_1.5px_0px_#0D0D0D] text-pitch-black transition-all"
               title="Inject unidentified contact"
             >
-              <Plus className="w-3 h-3 text-amber-600" />
+              <Plus className="w-3 h-3 text-pitch-black" />
               <span>Contact</span>
             </button>
             <button
               onClick={() => injectThreat('DEGRADATION')}
-              className="flex items-center gap-1 px-3 py-1 rounded-xl text-xs font-medium bg-stone-50 hover:bg-amber-50 border border-stone-200 hover:border-amber-200 text-stone-700 hover:text-amber-700 transition-all shadow-xs"
+              className="btn-pop flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-white hover:bg-sunshine-yellow/40 border border-pitch-black shadow-[1.5px_1.5px_0px_#0D0D0D] text-pitch-black transition-all"
               title="Inject synthetic RF noise / telemetry degradation scenario"
             >
-              <Plus className="w-3 h-3 text-amber-600" />
+              <Plus className="w-3 h-3 text-pitch-black" />
               <span>Degradation</span>
             </button>
           </div>
         </div>
       </div>
-      <div ref={containerRef} className="relative" style={{ height: 'clamp(380px, 52vh, 580px)' }}>
+      <div ref={containerRef} className="relative dot-grid bg-white flex-1 min-h-[440px]">
         <canvas
           ref={canvasRef}
           className="absolute inset-0 w-full h-full cursor-crosshair"

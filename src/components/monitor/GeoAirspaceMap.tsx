@@ -119,7 +119,22 @@ export const GeoAirspaceMap: React.FC<GeoAirspaceMapProps> = ({ currentArea, onA
     };
   }, [tileProvider, currentArea.lat, currentArea.lng]);
 
-  // 2. Pan when center area changes
+  // 2. Resize observer to keep map dimensions synced with container height
+  useEffect(() => {
+    const container = mapContainerRef.current;
+    if (!container) return;
+
+    const ro = new ResizeObserver(() => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.invalidateSize();
+      }
+    });
+
+    ro.observe(container);
+    return () => ro.disconnect();
+  }, []);
+
+  // 3. Pan when center area changes
   useEffect(() => {
     if (mapInstanceRef.current) {
       mapInstanceRef.current.setView([currentArea.lat, currentArea.lng], 12, { animate: true });
@@ -332,18 +347,18 @@ export const GeoAirspaceMap: React.FC<GeoAirspaceMapProps> = ({ currentArea, onA
   }, [onAreaChange]);
 
   return (
-    <div className="rounded-2xl border border-border bg-white shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col">
+    <div className="pop-card rounded-2xl bg-white border border-pitch-black shadow-[2px_2px_0px_#0D0D0D] overflow-hidden flex flex-col h-full">
       {/* Real Map Controls Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between px-5 py-3 border-b border-border bg-stone-50/50 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between px-5 py-3.5 border-b border-pitch-black bg-surface-0 gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <h2 className="font-serif italic text-lg text-stone-900 font-medium">Geospatial Airspace Overlay</h2>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+            <h2 className="font-display font-extrabold text-lg text-pitch-black tracking-tight">Geospatial Airspace Overlay</h2>
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-sunshine-yellow text-pitch-black border border-pitch-black shadow-[1px_1px_0px_#0D0D0D]">
               SYNTHETIC_OVERLAY
             </span>
           </div>
-          <p className="text-2xs text-stone-500 font-mono">
-            Projection: OpenStreetMap WGS84 · Relative ±10 km grid mapped to real geographic coordinates
+          <p className="text-2xs text-ink-500 font-mono mt-0.5">
+            Projection: OpenStreetMap WGS84 · ±10 km tactical surveillance corridor
           </p>
         </div>
 
@@ -359,19 +374,19 @@ export const GeoAirspaceMap: React.FC<GeoAirspaceMapProps> = ({ currentArea, onA
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="City, country or 'lat, lng'..."
                   autoFocus
-                  className="text-xs bg-white border border-indigo-300 rounded-xl px-2.5 py-1 text-stone-800 shadow-xs focus:ring-1 focus:ring-indigo-500 font-mono w-48"
+                  className="text-xs bg-white border border-pitch-black rounded-full px-3 py-1 text-pitch-black shadow-[1.5px_1.5px_0px_#0D0D0D] focus:outline-none font-mono w-48"
                 />
                 <button
                   type="submit"
                   disabled={geoLocating}
-                  className="px-2 py-1 bg-indigo-600 text-white rounded-xl text-xs font-medium hover:bg-indigo-700 shadow-xs disabled:opacity-50"
+                  className="btn-pop px-3 py-1 bg-creator-pink text-pitch-black border border-pitch-black rounded-full text-xs font-mono font-bold shadow-[1.5px_1.5px_0px_#0D0D0D] disabled:opacity-50"
                 >
                   {geoLocating ? '...' : 'Search'}
                 </button>
                 <button
                   type="button"
                   onClick={() => { setIsSearchActive(false); setSearchQuery(''); }}
-                  className="px-1.5 py-1 text-stone-400 hover:text-stone-600 text-xs font-bold"
+                  className="px-2 py-1 text-pitch-black hover:text-red-500 text-xs font-bold font-mono"
                 >
                   ✕
                 </button>
@@ -384,7 +399,7 @@ export const GeoAirspaceMap: React.FC<GeoAirspaceMapProps> = ({ currentArea, onA
                     const found = SAFE_DEMO_AREAS.find(a => a.id === e.target.value);
                     if (found) onAreaChange(found);
                   }}
-                  className="text-xs bg-white border border-stone-200 rounded-xl px-2.5 py-1.5 text-stone-700 shadow-xs focus:ring-1 focus:ring-indigo-500 font-serif"
+                  className="text-xs bg-white border border-pitch-black rounded-full px-3 py-1.5 text-pitch-black shadow-[1.5px_1.5px_0px_#0D0D0D] focus:outline-none font-display font-bold"
                 >
                   {SAFE_DEMO_AREAS.map(a => (
                     <option key={a.id} value={a.id}>
@@ -404,7 +419,7 @@ export const GeoAirspaceMap: React.FC<GeoAirspaceMapProps> = ({ currentArea, onA
                 <button
                   type="button"
                   onClick={() => setIsSearchActive(true)}
-                  className="p-1.5 rounded-xl border border-stone-200 bg-white hover:bg-stone-50 text-stone-500 hover:text-indigo-600 shadow-xs transition-colors"
+                  className="btn-pop p-1.5 rounded-full border border-pitch-black bg-white hover:bg-creator-pink text-pitch-black shadow-[1.5px_1.5px_0px_#0D0D0D] transition-colors"
                   title="Search any location via Live Nominatim API or enter custom 'lat, lng'"
                 >
                   <Search className="w-3.5 h-3.5" />
@@ -417,31 +432,31 @@ export const GeoAirspaceMap: React.FC<GeoAirspaceMapProps> = ({ currentArea, onA
           <button
             onClick={handleUseMyLocation}
             disabled={geoLocating}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-white hover:bg-indigo-50 border border-stone-200 hover:border-indigo-200 text-stone-700 hover:text-indigo-700 shadow-xs transition-all disabled:opacity-50"
+            className="btn-pop flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono font-bold bg-lime-glow text-pitch-black border border-pitch-black shadow-[1.5px_1.5px_0px_#0D0D0D] transition-all disabled:opacity-50"
             title="Acquire live coordinates using Geolocation API (IP/GPS)"
           >
-            <Satellite className={`w-3.5 h-3.5 text-indigo-600 ${geoLocating ? 'animate-spin' : ''}`} />
+            <Satellite className={`w-3.5 h-3.5 text-pitch-black ${geoLocating ? 'animate-spin' : ''}`} />
             <span>{geoLocating ? 'Acquiring...' : 'Live Location API'}</span>
           </button>
 
-          {/* Tile Provider Toggle (OSM Standard vs Esri Tactical Gray - 100% Free, No Watermark) */}
-          <div className="flex items-center rounded-xl border border-stone-200 bg-stone-100/70 p-0.5">
+          {/* Tile Provider Toggle */}
+          <div className="flex items-center rounded-full border border-pitch-black bg-white p-0.5 shadow-[1.5px_1.5px_0px_#0D0D0D]">
             <button
               onClick={() => setTileProvider('osm')}
-              className={`px-2.5 py-1 rounded-lg text-2xs font-semibold transition-all ${
+              className={`px-3 py-1 rounded-full text-2xs font-mono font-bold transition-all ${
                 tileProvider === 'osm'
-                  ? 'bg-accent-cyan text-white shadow-xs'
-                  : 'text-stone-600 hover:text-stone-900'
+                  ? 'bg-pitch-black text-white shadow-xs'
+                  : 'text-pitch-black hover:bg-surface-2'
               }`}
             >
               OSM Standard
             </button>
             <button
               onClick={() => setTileProvider('esri')}
-              className={`px-2.5 py-1 rounded-lg text-2xs font-semibold transition-all ${
+              className={`px-3 py-1 rounded-full text-2xs font-mono font-bold transition-all ${
                 tileProvider === 'esri'
-                  ? 'bg-accent-cyan text-white shadow-xs'
-                  : 'text-stone-600 hover:text-stone-900'
+                  ? 'bg-pitch-black text-white shadow-xs'
+                  : 'text-pitch-black hover:bg-surface-2'
               }`}
             >
               Tactical Gray
@@ -449,21 +464,21 @@ export const GeoAirspaceMap: React.FC<GeoAirspaceMapProps> = ({ currentArea, onA
           </div>
 
           {/* Scenario Injection Group */}
-          <div className="flex items-center gap-1.5 border-l border-stone-200 pl-2">
+          <div className="flex items-center gap-1.5 border-l border-pitch-black/20 pl-2">
             <button
               onClick={() => injectThreat('SWARM')}
-              className="flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-medium bg-stone-50 hover:bg-indigo-50 border border-stone-200 hover:border-indigo-200 text-stone-700 hover:text-indigo-600 transition-all shadow-xs"
+              className="btn-pop flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-white hover:bg-creator-pink/30 border border-pitch-black shadow-[1.5px_1.5px_0px_#0D0D0D] text-pitch-black transition-all"
               title="Inject simulated swarm scenario"
             >
-              <Plus className="w-3 h-3 text-indigo-600" />
+              <Plus className="w-3 h-3 text-pitch-black" />
               <span>Swarm</span>
             </button>
             <button
               onClick={() => injectThreat('DEGRADATION')}
-              className="flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-medium bg-stone-50 hover:bg-amber-50 border border-stone-200 hover:border-amber-200 text-stone-700 hover:text-amber-700 transition-all shadow-xs"
+              className="btn-pop flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-white hover:bg-sunshine-yellow/40 border border-pitch-black shadow-[1.5px_1.5px_0px_#0D0D0D] text-pitch-black transition-all"
               title="Inject synthetic RF degradation scenario"
             >
-              <Plus className="w-3 h-3 text-amber-600" />
+              <Plus className="w-3 h-3 text-pitch-black" />
               <span>Degradation</span>
             </button>
           </div>
@@ -492,8 +507,7 @@ export const GeoAirspaceMap: React.FC<GeoAirspaceMapProps> = ({ currentArea, onA
       {/* Leaflet Map Canvas */}
       <div
         ref={mapContainerRef}
-        style={{ height: 'clamp(420px, 56vh, 620px)' }}
-        className="relative w-full z-0"
+        className="relative w-full z-0 flex-1 min-h-[440px]"
       />
 
       {/* Map Footer Bar with Academic Provenance */}

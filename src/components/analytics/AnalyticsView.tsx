@@ -177,41 +177,41 @@ export const AnalyticsView: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Editorial Header */}
-      <div className="rounded-2xl border border-border bg-white px-6 py-4 shadow-[0_1px_3px_rgba(0,0,0,0.02)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div className="pop-card rounded-2xl border border-pitch-black bg-white px-6 py-4 shadow-[2px_2px_0px_#0D0D0D] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2.5">
-            <h2 className="font-serif italic text-2xl text-stone-900 font-medium">Airspace Telemetry & Quantitative Analytics</h2>
-            <span className="text-[10px] font-mono tracking-widest uppercase px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-600">
+            <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-pitch-black tracking-tight">Airspace Telemetry & Quantitative Analytics</h2>
+            <span className="text-[10px] font-mono font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full bg-sunshine-yellow text-pitch-black border border-pitch-black shadow-[1px_1px_0px_#0D0D0D]">
               03 / ANALYTICS
             </span>
           </div>
-          <p className="text-xs text-stone-500 mt-1 italic font-serif">
+          <p className="text-xs text-ink-500 mt-1 font-mono">
             Empirical telemetry metrics, ground-truth predictive errors, and measured runtime update latencies
           </p>
         </div>
-        <div className="flex items-center gap-2 font-mono text-2xs text-stone-600 bg-stone-50 border border-stone-200 px-3 py-1.5 rounded-xl">
-          <Activity className="w-3.5 h-3.5 text-indigo-600" />
-          <span>Scenario: <strong className="text-stone-900">{currentScenario}</strong></span>
-          <span className="text-stone-300">|</span>
-          <span>Buffer: {timeSeries.length} fixes</span>
+        <div className="flex items-center gap-2 font-mono text-2xs font-bold text-pitch-black bg-surface-0 border border-pitch-black px-3 py-1.5 rounded-full shadow-[1px_1px_0px_#0D0D0D]">
+          <Activity className="w-3.5 h-3.5 text-creator-pink" />
+          <span>SCENARIO: <strong className="text-pitch-black">{currentScenario}</strong></span>
+          <span className="text-pitch-black/30">|</span>
+          <span>BUFFER: {timeSeries.length} FIXES</span>
         </div>
       </div>
 
       {/* 1. Time-Series Plot: Object Count & Event Count over Simulation Time */}
-      <div className="rounded-2xl border border-border bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-stone-100 gap-3">
+      <div className="pop-card rounded-2xl border border-pitch-black bg-white p-6 shadow-[2px_2px_0px_#0D0D0D]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-pitch-black/20 gap-3">
           <div>
-            <h3 className="font-serif italic text-lg text-stone-900 font-medium">Airspace Density & Incident Growth</h3>
-            <p className="text-2xs text-stone-500 italic font-serif">Simulated object tracking count and cumulative security event generation</p>
+            <h3 className="font-display font-extrabold text-lg text-pitch-black tracking-tight">Airspace Density & Incident Growth</h3>
+            <p className="text-2xs text-ink-500 font-mono">Simulated object tracking count and cumulative security event generation</p>
           </div>
-          <div className="flex items-center gap-4 text-xs font-serif italic">
+          <div className="flex items-center gap-4 text-xs font-mono font-bold">
             <span className="flex items-center gap-2">
-              <span className="w-3 h-0.5 bg-indigo-600 rounded-full inline-block"></span>
-              <span className="text-stone-700">Active Contacts ({tracks.length})</span>
+              <span className="w-3 h-1.5 bg-pitch-black rounded-full inline-block border border-pitch-black"></span>
+              <span className="text-pitch-black">Active Contacts ({tracks.length})</span>
             </span>
             <span className="flex items-center gap-2">
-              <span className="w-3 h-0.5 bg-amber-600 rounded-full inline-block"></span>
-              <span className="text-stone-700">Events Logged ({events.length})</span>
+              <span className="w-3 h-1.5 bg-sunshine-yellow rounded-full inline-block border border-pitch-black"></span>
+              <span className="text-pitch-black">Events Logged ({events.length})</span>
             </span>
           </div>
         </div>
@@ -324,13 +324,13 @@ export const AnalyticsView: React.FC = () => {
       {/* 2. Telemetry Freshness & Data Quality Distribution */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Telemetry Freshness */}
-        <div className="rounded-2xl border border-border bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.02)] flex flex-col justify-between">
+        <div className="pop-card rounded-2xl border border-pitch-black bg-white p-5 shadow-[2px_2px_0px_#0D0D0D] flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="font-serif italic text-lg text-stone-900 font-medium">Telemetry Signal Freshness</h3>
-              <Clock className="w-4 h-4 text-indigo-600" />
+              <h3 className="font-display font-extrabold text-lg text-pitch-black tracking-tight">Telemetry Signal Freshness</h3>
+              <Clock className="w-4 h-4 text-pitch-black" />
             </div>
-            <p className="text-2xs text-stone-500 italic font-serif mb-4">
+            <p className="text-2xs text-ink-500 font-mono mb-4">
               Elapsed latency since most recent physical radio fix received per target
             </p>
 
@@ -374,13 +374,13 @@ export const AnalyticsView: React.FC = () => {
         </div>
 
         {/* Data Quality Distribution */}
-        <div className="rounded-2xl border border-border bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.02)] flex flex-col justify-between">
+        <div className="pop-card rounded-2xl border border-pitch-black bg-white p-5 shadow-[2px_2px_0px_#0D0D0D] flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="font-serif italic text-lg text-stone-900 font-medium">Telemetry Integrity & SNR Quality</h3>
-              <Gauge className="w-4 h-4 text-emerald-600" />
+              <h3 className="font-display font-extrabold text-lg text-pitch-black tracking-tight">Telemetry Integrity & SNR Quality</h3>
+              <Gauge className="w-4 h-4 text-pitch-black" />
             </div>
-            <p className="text-2xs text-stone-500 italic font-serif mb-4">
+            <p className="text-2xs text-ink-500 font-mono mb-4">
               Composite signal-to-noise ratio, packet history continuity, and jamming status degradation
             </p>
 
@@ -424,16 +424,16 @@ export const AnalyticsView: React.FC = () => {
       </div>
 
       {/* 3. Prediction Error vs Synthetic Ground Truth */}
-      <div className="rounded-2xl border border-border bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-stone-100 gap-3">
+      <div className="pop-card rounded-2xl border border-pitch-black bg-white p-6 shadow-[2px_2px_0px_#0D0D0D]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-pitch-black/20 gap-3">
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="font-serif italic text-lg text-stone-900 font-medium">Trajectory Prediction Error vs Ground Truth</h3>
-              <span className="text-[10px] font-mono uppercase bg-indigo-50 text-indigo-700 border border-indigo-200 px-2 py-0.5 rounded-full">
-                Kinematic Model Audit
+              <h3 className="font-display font-extrabold text-lg text-pitch-black tracking-tight">Trajectory Prediction Error vs Ground Truth</h3>
+              <span className="text-[10px] font-mono font-bold uppercase bg-sunshine-yellow text-pitch-black border border-pitch-black px-2 py-0.5 rounded-full shadow-[1px_1px_0px_#0D0D0D]">
+                Kinematic Audit
               </span>
             </div>
-            <p className="text-2xs text-stone-500 italic font-serif">
+            <p className="text-2xs text-ink-500 font-mono mt-0.5">
               Measured spatial variance between extrapolated dead-reckoning vectors and actual synthetic ground truth
             </p>
           </div>
@@ -500,13 +500,13 @@ export const AnalyticsView: React.FC = () => {
       {/* 4. Event Categories & Risk-Score Contributions + Measured Processing Latency */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Risk-Score Contributions */}
-        <div className="rounded-2xl border border-border bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
-          <div className="flex items-center justify-between pb-3 border-b border-stone-100">
+        <div className="pop-card rounded-2xl border border-pitch-black bg-white p-6 shadow-[2px_2px_0px_#0D0D0D]">
+          <div className="flex items-center justify-between pb-3 border-b border-pitch-black/20">
             <div>
-              <h3 className="font-serif italic text-lg text-stone-900 font-medium">Threat Risk-Score Contributions</h3>
-              <p className="text-2xs text-stone-500 italic font-serif">Deterministic risk weights calculated from kinematics, proximity, and event status</p>
+              <h3 className="font-display font-extrabold text-lg text-pitch-black tracking-tight">Threat Risk-Score Contributions</h3>
+              <p className="text-2xs text-ink-500 font-mono">Deterministic risk weights calculated from kinematics, proximity, and event status</p>
             </div>
-            <ShieldAlert className="w-4 h-4 text-rose-600" />
+            <ShieldAlert className="w-4 h-4 text-red-500" />
           </div>
 
           <div className="mt-4 space-y-4">
@@ -551,14 +551,14 @@ export const AnalyticsView: React.FC = () => {
         </div>
 
         {/* Processing & Update Latency using ACTUAL Measured Timings */}
-        <div className="rounded-2xl border border-border bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.02)] flex flex-col justify-between">
+        <div className="pop-card rounded-2xl border border-pitch-black bg-white p-6 shadow-[2px_2px_0px_#0D0D0D] flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between pb-3 border-b border-stone-100">
+            <div className="flex items-center justify-between pb-3 border-b border-pitch-black/20">
               <div>
-                <h3 className="font-serif italic text-lg text-stone-900 font-medium">Telemetry Loop Processing Latency</h3>
-                <p className="text-2xs text-stone-500 italic font-serif">Actual millisecond execution duration measured via high-precision performance API</p>
+                <h3 className="font-display font-extrabold text-lg text-pitch-black tracking-tight">Telemetry Loop Processing Latency</h3>
+                <p className="text-2xs text-ink-500 font-mono">Actual millisecond execution duration measured via high-precision performance API</p>
               </div>
-              <Cpu className="w-4 h-4 text-indigo-600" />
+              <Cpu className="w-4 h-4 text-pitch-black" />
             </div>
 
             {/* Metric Readouts */}
